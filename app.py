@@ -107,7 +107,7 @@ def extract_audio():
         audio_path = os.path.join(app.config['UPLOAD_FOLDER'], 'audio.mp3')
         video_clip.audio.write_audiofile(audio_path)
 
-        return jsonify({'audio_url': f'video-to-audio-frontend.vercel.app/uploads/audio.mp3'})
+        return jsonify({'audio_url': f'https://video-to-audio-frontend.vercel.app/uploads/audio.mp3'})
 
     elif video_url:
         # Placeholder for video download functionality
@@ -116,7 +116,7 @@ def extract_audio():
         audio_path = os.path.join(app.config['UPLOAD_FOLDER'], 'audio.mp3')
         video_clip.audio.write_audiofile(audio_path)
 
-        return jsonify({'audio_url': f'video-to-audio-frontend.vercel.app/uploads/audio.mp3'})
+        return jsonify({'audio_url': f'https://video-to-audio-frontend.vercel.app/uploads/audio.mp3'})
 
     return jsonify({'error': 'No video or URL provided'}), 400
 
@@ -125,5 +125,6 @@ def serve_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
+
 
