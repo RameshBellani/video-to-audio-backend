@@ -107,7 +107,7 @@ def extract_audio():
         audio_path = os.path.join(app.config['UPLOAD_FOLDER'], 'audio.mp3')
         video_clip.audio.write_audiofile(audio_path)
 
-        return jsonify({'audio_url': f'http://localhost:5000/uploads/audio.mp3'})
+        return jsonify({'audio_url': f'https://video-to-audio-frontend.vercel.app/uploads/audio.mp3'})
 
     elif video_url:
         # Placeholder for video download functionality
