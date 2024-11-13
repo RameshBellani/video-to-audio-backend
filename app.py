@@ -70,7 +70,6 @@
 #     app.run(debug=True)
 
 
-
 import os
 from flask import Flask, request, jsonify, send_from_directory
 from moviepy.editor import VideoFileClip
@@ -107,7 +106,8 @@ def extract_audio():
         audio_path = os.path.join(app.config['UPLOAD_FOLDER'], 'audio.mp3')
         video_clip.audio.write_audiofile(audio_path)
 
-        return jsonify({'audio_url': f'https://video-to-audio-frontend.vercel.app/uploads/audio.mp3'})
+        # Return the backend URL for downloading the audio
+        return jsonify({'audio_url': f'https://video-to-audio-backend.onrender.com/uploads/audio.mp3'})
 
     elif video_url:
         # Placeholder for video download functionality
@@ -116,15 +116,15 @@ def extract_audio():
         audio_path = os.path.join(app.config['UPLOAD_FOLDER'], 'audio.mp3')
         video_clip.audio.write_audiofile(audio_path)
 
-        return jsonify({'audio_url': f'https://video-to-audio-frontend.vercel.app/uploads/audio.mp3'})
+        # Return the backend URL for downloading the audio
+        return jsonify({'audio_url': f'https://video-to-audio-backend.onrender.com/uploads/audio.mp3'})
 
     return jsonify({'error': 'No video or URL provided'}), 400
 
 @app.route('/uploads/<path:filename>', methods=['GET'])
 def serve_file(filename):
+    # Serve the audio file from the 'uploads' directory
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
-
-
